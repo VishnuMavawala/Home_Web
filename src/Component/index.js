@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Route, Switch, Link, BrowserRouter, Redirect } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login';
+import Home from './home';
+import Login from './login';
 
 export default class Router extends Component {
     render() {
@@ -23,10 +23,10 @@ export default class Router extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <nav>
+                    {/*<nav>
                         <Link to="/home">Home</Link> { " | " }
                         <Link to="/login">Login</Link>
-                    </nav>
+                    </nav>*/}
                     <Switch>
                         <PublicRouter path="/login" component={Login} />
                         <PrivateRouter path="/home" component={Home} />
