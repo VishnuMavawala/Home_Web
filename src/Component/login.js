@@ -14,36 +14,17 @@ export default class login extends Component {
 
     checkAuthentication()
     {
-        /*const myApi = axios.create({
-            baseURL: 'https://vishnumavawala.000webhostapp.com/Home/login.php',
-            timeout: 10000,
-            withCredentials: true,
-            transformRequest: [(data) => JSON.stringify(data.data)],
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            data: this.state
-        });
-
-        axios({
-            method: 'post',
-            url: 'https://vishnumavawala.000webhostapp.com/Home/login.php',
-            data: this.state
-        });
-        axios.request(myApi);*/
-        axios.post('https://vishnumavawala.000webhostapp.com/Home/login.php', this.state)
+        axios.post('https://vishnumavawala.000webhostapp.com/Home/login.php', JSON.stringify(this.state))
             .then((res) => {
-                debugger;
-                if(res.data.status=="Successful") {
+                if(res.data.status==="Successful") {
                     this.setState({ username: '', password: ''});
-                    <Redirect to='/home'  />
+                    <Redirect to="/home" />
+                    localStorage.setItem('User', res.data.user);
                 }
                 else
                     alert('Invalid Username & Password.');
             })
             .catch((err) => {
-                debugger;
                 console.log("err", err)
             });
     }
