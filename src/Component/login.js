@@ -3,9 +3,9 @@ import  { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 export default class login extends Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
         this.state={
             username: 'Vishnu',
             password: 'Vishnu123'
@@ -18,8 +18,9 @@ export default class login extends Component {
             .then((res) => {
                 if(res.data.status==="Successful") {
                     this.setState({ username: '', password: ''});
-                    <Redirect to="/home" />
+                    {/*<Redirect to="/home" />*/}
                     localStorage.setItem('User', res.data.user);
+                    this.props.changeUser(res.data.user);
                 }
                 else
                     alert('Invalid Username & Password.');
