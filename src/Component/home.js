@@ -37,9 +37,13 @@ export default class home extends Component
         };
 
         return(
-            <div>
-                <table border='1'>
-                    <tbody>
+            <div style={{ textAlign: 'center' }}>
+                <input type="button" onClick={() => {
+                    localStorage.removeItem('User');
+                    this.props.changeUser('');
+                }} value="Logout" />
+                <br /><br /><br />
+                <table style={{ marginLeft: 'auto', marginRight: 'auto', width: 180}}>
                     <tr>
                         <th>No</th>
                         <th>Action</th>
@@ -54,7 +58,6 @@ export default class home extends Component
                             </tr>)
                     }
                     {this.state.arr.length===0?<tr><td colSpan='2'><i>No connected Pi</i></td></tr>:""}
-                    </tbody>
                 </table>
             </div>
         );
