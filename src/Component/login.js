@@ -32,10 +32,15 @@ export default class login extends Component {
 
     render() {
         return (
-            <div>
-                <input type='text' value={this.state.username} onChange={(e) => this.setState({ username: e.target.value })} placeholder="Enter Username..." /><br />
-                <input type='password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} placeholder="Enter Password..." /><br />
-                <input type='button' value="Login" onClick={() => { this.checkAuthentication() }} />
+            <div style={{ margin: 'auto', textAlign: 'center', width: '30%' }}>
+                <br /><br />
+                <div>
+                    <b><h1 style={{ color: 'blue' }}>Home Automation</h1></b>
+                </div>
+                <br /><br />
+                <input type='text' className="form-control" value={this.state.username} onChange={(e) => this.setState({ username: e.target.value })} placeholder="Enter Username..." /><br />
+                <input type='password' className="form-control" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} placeholder="Enter Password..." /><br />
+                <input type='button' className="btn btn-primary" value="Login" onClick={() => { this.checkAuthentication() }} />
             </div>
         );
     }
