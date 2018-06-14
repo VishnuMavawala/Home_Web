@@ -5,36 +5,46 @@ import u112Img from '../img/u112.jpg';
 
 export default class home extends Component
 {
-    user=localStorage.getItem('User');
+    user = localStorage.getItem('User');
+    puserJson = {};
 
     constructor(props)
     {
         super(props);
         this.state= {
-            arr: []
+            arr: [],
         };
-        
-        var pusher = new Pusher('32c679fbef206b43bbda', {
-            cluster: 'ap2',
-            encrypted: true
+
+        axios.post('https://vishnumavawala.000webhostapp.com/Home/pusher.php', JSON.stringify({ "device": "Web" }))
+            .then((json) => {
+                this.connectionInit(json.data);
+            });
+    }
+
+    connectionInit(json)
+    {
+        this.puserJson=json;
+        let pusher = new Pusher(this.puserJson.key, {
+            cluster: this.puserJson.cluster,
+            encrypted: this.puserJson.encrypted
         });
 
-        var channel = pusher.subscribe(this.user);
+        let channel = pusher.subscribe(this.user);
         channel.bind('init', (arr) => {
-            this.setState({ arr });
+            this.setState({arr});
         });
         channel.bind('part', (arr) => {
-            this.setState({ arr });
+            this.setState({arr});
         });
 
-        axios.get(`https://home-static-server.herokuapp.com/api/${this.user}/init`);
+        axios.get(`${this.puserJson.restServer}/api/${this.user}/init`);
     }
 
     render()
     {
         this.handlePart = (index, key, value) => {
             this.state.arr[index].value=!value;
-            axios.post(`https://home-static-server.herokuapp.com/api/${this.user}/part`, this.state.arr);
+            axios.post(`${this.puserJson.restServer}/api/${this.user}/part`, this.state.arr);
         };
 
         return(
